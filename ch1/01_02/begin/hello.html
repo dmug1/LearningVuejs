@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 
-<h1 id="greeting"></h1>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<style>
+    [v-cloak]{
+        display: none;
+    }
+</style>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<div id="app">
+<div class="container">
+    <form v-show="!submitted" class="mt-5">
+        <div id="form-group">
+            <label form="email">Email<email>
+            <input type="email" v-model="email" class="form-control form-control-lg">
+        </div>
+        <button type="submit"  @click.prevent="process" class="btn btn-primary">Submit</button>
+    </form>
+    <h2 v-show="submitted" v-cloak class="mt-5">Thank you</h2>
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    // document.getElementById('greeting').innerText = 'Hello from vanilla JavaScript!';
-
-    $('#greeting').text('Hello from jQuery!');
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            email: 'malakias@gmail.com',
+            submitted: false,
+        },
+        methods:{
+            process: function () {
+                //event.preventDefault();
+                //alert('Submitted ' + this.email);                
+                this.submitted = true;
+            }
+        }
+    });
 </script>
