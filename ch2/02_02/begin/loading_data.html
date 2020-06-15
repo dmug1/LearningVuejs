@@ -17,20 +17,29 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
-    var apiKey =  'SueyfNPwnd04bMTFWhnkE0At7ECzP5oB4tBU25vr'
-     var url = 'https://api.nasa.gov/planetary/apod?api_key=' + apiKey + '&date=2019-04-19'
     var vm = new Vue({
         el: '#app',
         data: {
             imgSrc: '',
             imgTitle:'',
-        }        
+        },
+        created: function(){
+            this.fetchApod();
+        },
+        methods:{
+            fetchApod: function() {                
+                var apiKey =  'SueyfNPwnd04bMTFWhnkE0At7ECzP5oB4tBU25vr'
+                var url = 'https://api.nasa.gov/planetary/apod?api_key=' + apiKey + '&date=2019-04-19'
+
+                axios.get(url)
+                .then(function (res){
+                    vm.imgSrc = res.data.url;
+                    vm.imgTitle = res.data.title;
+                    console.log(res);
+                })
+            }
+        }       
     });    
 
-    axios.get(url)
-        .then(function (res){
-            vm.imgSrc = res.data.url;
-            vm.imgTitle = res.data.title;
-            console.log(res);
-        })
+    
 </script>
