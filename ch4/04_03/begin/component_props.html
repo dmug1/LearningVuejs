@@ -9,18 +9,20 @@
 
 <div id="app">
     <div class="container">
-        <img :src="imgSrc" :title="imgTitle">
+        <a-pod/>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>    
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            imgSrc: '',
-            imgTitle: ''
+    Vue.component('a-pod',{
+        template: '<img :src="imgSrc" :title="imgTitle">',
+        data: function() {
+            return{
+                imgSrc: '',
+                imgTitle: ''
+                }
         },
         created: function () {
             this.fetchApod();
@@ -29,12 +31,19 @@
             fetchApod: function () {
                 var apiKey = 'lkgI9to0hRizfzk4xTAxtNTTFkkA4Mtq7y1yW5me';
                 var url = 'https://api.nasa.gov/planetary/apod?api_key=' + apiKey;
+                var self = this;
                 axios.get(url)
                     .then(function (res) {
-                        vm.imgSrc = res.data.url;
-                        vm.imgTitle = res.data.title;
+                        self.imgSrc = res.data.url;
+                        self.imgTitle = res.data.title;
+                        console.log(imgTitle,imgSrc);
                     });
             }
-        }     
+        }    
+    });
+
+    var vm = new Vue({
+        el: '#app',
+         
     });        
 </script>
